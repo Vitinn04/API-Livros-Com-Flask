@@ -31,6 +31,7 @@ def obterLivroId(id):
     for livro in livros:
         if livro.get('id') == id:
             return jsonify(livro)
+
     return jsonify({'Erro': 'Livro não encontrado'}), 404
 
 #Criar
@@ -50,12 +51,16 @@ def editarLivroId(id):
             livros[i].update(livroAlterado)
             return jsonify(livros[i])
 
+    return jsonify({'Erro': 'Livro não encontrado'}), 404
+
 # Excluir
 @app.route('/livros/<int:id>', methods=['DELETE'])
 def deletarLivroId(id):
     for i, livro in enumerate(livros):
         if livro.get('id') == id:
             del livros[i]
+        else:
+            return jsonify({'Erro': 'Livro não encontrado'}), 404
 
     return jsonify(livros)
 
